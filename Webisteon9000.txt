@@ -1,0 +1,62 @@
+For AWS,
+    There is one client Tesla. He wants to host his website on EC2 Instance. He has following requirement,
+        -  Website should host on port 8443
+        -  Website must be accessible through HTTPS only 
+        -  Website should not be accessible through HTTP
+        -  Website should be stored in S3 bucket    
+        -  Logs related to website must be store in another S3 bucket
+        -  Schedule log-rotation with Retention of 10 Days
+Host,
+Html website 
+Nodejs application 
+Php a
+
+
+
+yum install epel-release -y
+yum install epel-release -y
+echo AKIA4PPXPVSSX37HJMQS:NK85E7TB43Yvudby8JkIP2eMaGL4qPlhMnQwSaa7   > /root/.passwd-s3fs
+chmod 600 /root/.passwd-s3fs
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+vi /etc/fstab
+s3fs#buckeeee /var/www/html fuse nonempty,allo_other,use_cache=/tmp/url=https://s3amazonaws.com 0 0
+
+mount -a
+
+
+ yum install mod_ssl -y
+    yum install openssl -y
+openssl genrsa -out ca.key 2048
+openssl req -new -key ca.key -out ca.csr
+
+openssl x509 -req -days 365 -in ca.csr -signkey ca.key -out ca.crt
+
+cp ca.crt /etc/pki/tls/certs
+ cp ca.key /etc/pki/tls/private
+cp ca.csr /etc/pki/tls/private
+                                                                                
+vi /etc/httpd/conf.d/ssl.conf
+
+
+/etc/pki/tls/certs/ca.crt
+/etc/pki/tls/private/ca.key
+
+httpd -t
+
+
+vi /etc/httpd/conf/httpd.conf
+
+<VirtualHost *:8443>
+SSLEngine on
+SSLCertificatefile /etc/pki/tls/certs/ca.crt
+SSLCertificatefile /etc/pki/tls/private/ca.key
+servername www.test.com
+Documentroot /var/www/html
+<VirtualHost>
+
+vi /etc/selinux/config
+permissive
+setenforce 0
+ ________________________________________________________________________________________________________________________________________________________________
